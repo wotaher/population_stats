@@ -1,0 +1,11 @@
+.pictogramComparator {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+}

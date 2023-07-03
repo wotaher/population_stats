@@ -8,8 +8,9 @@ function App() {
   const isOverlayVisible = useOverlay();
 
   return (
-    <div>
-      <div style={{ width: "1220px" }}>
+    <div className="mainContainer">
+      <div className="worldWrapper">
+        <h1>Select two countries to compare</h1>
         <WorldMap></WorldMap>
       </div>
 

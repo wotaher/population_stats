@@ -10,7 +10,7 @@ import { selectCountriesByCode } from "../../store/countries/selectors";
 
 export const DetailsCompare = ({ toCompare = [] }) => {
   const { countryCodes, countries } = useComparator(toCompare);
-  console.log(countries, countryCodes);
+
   return (
     <div className="details">
       <div className="columns">
@@ -24,10 +24,7 @@ export const DetailsCompare = ({ toCompare = [] }) => {
       <Card>
         <PopulationChart countryCodes={countryCodes}></PopulationChart>
       </Card>
-      <Card>
-        <PictogramComparator countryCodes={countryCodes}></PictogramComparator>
-      </Card>
-      <Card></Card>
+      <PictogramComparator countryCodes={countryCodes}></PictogramComparator>
     </div>
   );
 };

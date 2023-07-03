@@ -1,16 +1,19 @@
 /* eslint-disable react/prop-types */
-import { useCountriesByCode } from "../../store/countries/hooks";
 import { Card } from "../Card/Card";
 import { HumanPictogram } from "../HumanPictogram/HumanPictogram";
+import "./styles.css";
+import { useSelector } from "react-redux";
+import { selectCountriesByCode } from "../../store/countries/selectors";
+import { selectCountryCodesToCompare } from "../../store/comparator/selectors";
 
 const PICTOGRAM_SIZE = 100000;
 
-export const PictogramComparator = ({ countryCodes }) => {
-  const countries = useCountriesByCode(countryCodes);
+export const PictogramComparator = () => {
+  const { countries, countryCodes } = usePictogramComparator();
 
   return (
-    <div>
-      {Object.keys(countries).map((key) => {
+    <div className="pictogramComparator">
+      {countryCodes.map((key) => {
         const countryData = countries[key];
 
         const population = countryData.stats.find(
@@ -30,6 +33,11 @@ export const PictogramComparator = ({ countryCodes }) => {
 
         return (
           <Card key={key}>
+            <div className="legend">
+              <HumanPictogram count={1} />
+              &nbsp;
+              <span>{`= ${PICTOGRAM_SIZE.toLocaleString()} people`}</span>
+            </div>
             <HumanPictogram
               count={pictogramsToRender}
               lastWidthPercent={
@@ -45,6 +53,12 @@ export const PictogramComparator = ({ countryCodes }) => {
   );
 };
 
-// const usePictogramComparator = (countryCodes) => {
-//   const countries = useCountriesByCode(countryCodes);
-// };
+const usePictogramComparator = () => {
+  const countryCodes = useSelector(selectCountryCodesToCompare);
+  const countries = useSelector(selectCountriesByCode(countryCodes));
+
+  return {
+    countryCodes,
+    countries,
+  };
+};

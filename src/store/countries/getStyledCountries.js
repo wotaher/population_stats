@@ -49,7 +49,7 @@ const getSortedRulesArray = () => {
 const getRuleStyles = (rule) => {
   const styles = rules[rule];
 
-  return styles;
+  return { ...styles, hoverState: { backgroundColor: "#FF9B93" } };
 };
 
 const getUndefinedStyles = () => {
@@ -60,21 +60,18 @@ const getUndefinedStyles = () => {
 
 const rules = {
   1000000000: {
-    backgroundColor: "red",
+    backgroundColor: "#FF9B93",
   },
-  700000: {
-    backgroundColor: "satin",
-  },
-  500000000: {
-    backgroundColor: "blue",
+  100000000: {
+    backgroundColor: "#FFBE9F",
   },
   10000000: {
-    backgroundColor: "pink",
+    backgroundColor: "#FFED8A",
   },
   1000000: {
-    backgroundColor: "green",
+    backgroundColor: "#99C99A",
   },
   100000: {
-    backgroundColor: "lightgreen",
+    backgroundColor: "#C4D4B2",
   },
 };

@@ -1,0 +1,15 @@
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.worldWrapper {
+  width: 1220px;
+}
+
+.worldWrapper h1 {
+  text-align: center;
+}

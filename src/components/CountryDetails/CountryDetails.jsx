@@ -20,9 +20,9 @@ export const CountryDetails = ({ country }) => {
 
   return (
     <div className="countryDetails">
-      <h1 className="countryName">{country.countryName}</h1>
+      <h2 className="countryName">{country.countryName}</h2>
       <span className="year">({DETAILS_YEAR.toString()})</span>
-      <h2>Population</h2>
+      <h3>Population</h3>
       <span className="stat">
         <CountingAnimation
           endValue={population}
@@ -30,7 +30,7 @@ export const CountryDetails = ({ country }) => {
           duration={DETAILS_COUNTING_DURATION}
         ></CountingAnimation>
       </span>
-      <h2>Growth in last decade</h2>
+      <h3>Growth in last decade</h3>
       <span className="stat">
         <CountingAnimation
           endValue={population - before}
@@ -38,7 +38,7 @@ export const CountryDetails = ({ country }) => {
           duration={DETAILS_COUNTING_DURATION}
         ></CountingAnimation>
       </span>
-      <h2>Growth speed</h2>
+      <h3>Growth speed in last decade</h3>
       <span className="stat">
         {calculatePopulationGrowth(before, population)}
         <span className="percent">%</span>
