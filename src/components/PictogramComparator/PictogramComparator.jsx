@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useCountriesByCode } from "../../store/countries/hooks";
+import { Card } from "../Card/Card";
 import { HumanPictogram } from "../HumanPictogram/HumanPictogram";
 
 const PICTOGRAM_SIZE = 100000;
@@ -28,17 +29,22 @@ export const PictogramComparator = ({ countryCodes }) => {
         if (shouldRenderLastPictogramPartialy) pictogramsToRender += 1;
 
         return (
-          <HumanPictogram
-            key={key}
-            count={pictogramsToRender}
-            lastWidthPercent={
-              shouldRenderLastPictogramPartialy
-                ? lastPictogramLength
-                : undefined
-            }
-          />
+          <Card key={key}>
+            <HumanPictogram
+              count={pictogramsToRender}
+              lastWidthPercent={
+                shouldRenderLastPictogramPartialy
+                  ? lastPictogramLength
+                  : undefined
+              }
+            />
+          </Card>
         );
       })}
     </div>
   );
 };
+
+// const usePictogramComparator = (countryCodes) => {
+//   const countries = useCountriesByCode(countryCodes);
+// };

@@ -1,0 +1,20 @@
+.countryDetails h2 {
+  margin-bottom: 0.1rem;
+}
+
+.countryName {
+  margin-top: 0;
+  margin-bottom: 0.1rem;
+}
+
+.year {
+  font-size: 1.3rem;
+}
+
+.stat {
+  font-size: 3rem;
+}
+
+.percent {
+  font-size: 1.4rem;
+}

@@ -1,13 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const MAX_TO_COMPARE = 2;
+export const MAX_TO_COMPARE = 2;
 
-// Define the initial state
 const initialState = {
   toCompare: [],
 };
 
-// Define the slice
 export const comparatorSlice = createSlice({
   name: "comparator",
   initialState,
