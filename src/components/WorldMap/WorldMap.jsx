@@ -4,8 +4,8 @@ import ZingChart from "zingchart-react";
 import "zingchart/modules-es6/zingchart-maps.min.js";
 import "zingchart/modules-es6/zingchart-maps-world-countries.min.js";
 import { useMemo } from "react";
-import { useCountriesByCode } from "../../store/hooks";
-import { getStyledCountries } from "../../store/getStyledCountries";
+import { useCountriesByCode } from "../../store/countries/hooks";
+import { getStyledCountries } from "../../store/countries/getStyledCountries";
 import { useSelector } from "react-redux";
 
 const getConfig = (countriesByCode, onCountryClick) => {

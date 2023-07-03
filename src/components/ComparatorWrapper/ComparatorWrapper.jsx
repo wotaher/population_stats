@@ -1,9 +1,21 @@
 import { WorldMap } from "../WorldMap/WorldMap";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Comparator } from "../Comparator/Comparator";
+import { selectCountryCodesToCompare } from "../../store/comparator/selectors";
+import {
+  clearCompare,
+  addToCompare,
+  removeFromCompare,
+} from "../../store/comparator";
 
 export const ComparatorWrapper = () => {
-  const { addToCompare: onCountryClick, toCompare } = useComparatorWrapper();
+  const { handleAddToCompare, toCompare } = useComparatorWrapper();
+  console.log(toCompare);
+
+  const onCountryClick = (ev) => {
+    handleAddToCompare(ev.shapeid);
+  };
 
   return (
     <div>
@@ -13,33 +25,26 @@ export const ComparatorWrapper = () => {
   );
 };
 
-const MAX_TO_COMPARE = 2;
-
 const useComparatorWrapper = () => {
-  const [toCompare, setToCompare] = useState([]);
+  const toCompare = useSelector(selectCountryCodesToCompare);
+  const dispatch = useDispatch();
 
-  const clearCompare = (addAtTheEnd) => {
-    setToCompare(addAtTheEnd ? [addAtTheEnd] : []);
+  const handleClearCompare = (addAtTheEnd) => {
+    dispatch(clearCompare(addAtTheEnd));
   };
 
-  const removeFromCompare = (countryCode) => {
-    setToCompare([...toCompare.filter((code) => code !== countryCode)]);
+  const handleRemoveFromCompare = (countryCode) => {
+    dispatch(removeFromCompare(countryCode));
   };
 
-  const addToCompare = (country) => {
-    const countryCode = country.shapeid;
-
-    // TODO refactor this shit
-    if (toCompare.includes(countryCode)) {
-      removeFromCompare(countryCode);
-    } else {
-      if (toCompare.length >= MAX_TO_COMPARE) {
-        clearCompare(countryCode);
-      } else {
-        setToCompare([...toCompare, countryCode]);
-      }
-    }
+  const handleAddToCompare = (country) => {
+    dispatch(addToCompare(country));
   };
 
-  return { toCompare, addToCompare, removeFromCompare };
+  return {
+    toCompare,
+    handleAddToCompare,
+    handleRemoveFromCompare,
+    handleClearCompare,
+  };
 };
