@@ -17,13 +17,10 @@ export const PopulationChart = ({ countryCodes }) => {
 };
 
 const getChartConfig = (countries) => {
-  console.log(countries);
   const populations = Object.keys(countries).map(
     (countryCode) =>
       countries[countryCode].stats.find((stat) => stat.year === 2022).population
   );
-
-  console.log(getMaxYAxisValue(populations));
 
   return {
     data: {
@@ -101,20 +98,19 @@ const getChartConfig = (countries) => {
       },
       plot: {
         highlight: true,
-        "tooltip-text": "%t views: %v<br>%k",
         shadow: 0,
         "line-width": "2px",
         marker: {
           type: "circle",
-          size: 3,
+          size: 4,
         },
         "highlight-state": {
-          "line-width": 3,
+          "line-width": 2,
         },
         animation: {
           effect: 1,
           sequence: 2,
-          speed: 50,
+          speed: 80,
         },
       },
       series: [
@@ -123,14 +119,6 @@ const getChartConfig = (countries) => {
           return {
             values: country.stats.map((stat) => stat.population),
             text: country.countryName,
-            "legend-item": {
-              "background-color": "#007790",
-              borderRadius: 5,
-              "font-color": "white",
-            },
-            "legend-marker": {
-              visible: false,
-            },
           };
         }),
         // {

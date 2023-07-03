@@ -1,0 +1,13 @@
+.human-icon {
+  width: 20px;
+  height: 40px;
+}
+
+.icon-container {
+  overflow: hidden;
+}
+
+.human-pictogram-container {
+  display: flex;
+  flex-wrap: wrap;
+}

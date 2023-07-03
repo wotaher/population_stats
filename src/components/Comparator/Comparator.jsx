@@ -2,6 +2,7 @@
 import { PopulationChart } from "../PopulationChart/PopulationChart";
 import { useSelector } from "react-redux";
 import { selectCountryCodesToCompare } from "../../store/comparator/selectors";
+import { PictogramComparator } from "../PictogramComparator/PictogramComparator";
 
 export const Comparator = ({ toCompare = [] }) => {
   const { countryCodes } = useComparator(toCompare);
@@ -9,6 +10,7 @@ export const Comparator = ({ toCompare = [] }) => {
   return (
     <div>
       <PopulationChart countryCodes={countryCodes}></PopulationChart>
+      <PictogramComparator countryCodes={countryCodes}></PictogramComparator>
     </div>
   );
 };
