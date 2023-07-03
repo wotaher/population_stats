@@ -1,15 +1,30 @@
+/* eslint-disable react/prop-types */
 import "zingchart/es6";
 import ZingChart from "zingchart-react";
+import { useMemo } from "react";
+import { useCountriesByCode } from "../../store/countries/hooks";
 
-export const PopulationChart = ({ countries }) => {
+export const PopulationChart = ({ countryCodes }) => {
+  const countries = useCountriesByCode(countryCodes);
+
+  const chartConfig = useMemo(() => getChartConfig(countries), [countries]);
+
   return (
     <div>
-      <ZingChart {...prepareCountriesData(countries)}></ZingChart>
+      <ZingChart {...chartConfig}></ZingChart>
     </div>
   );
 };
 
-const prepareCountriesData = (countries) => {
+const getChartConfig = (countries) => {
+  console.log(countries);
+  const populations = Object.keys(countries).map(
+    (countryCode) =>
+      countries[countryCode].stats.find((stat) => stat.year === 2022).population
+  );
+
+  console.log(getMaxYAxisValue(populations));
+
   return {
     data: {
       type: "line",
@@ -38,9 +53,9 @@ const prepareCountriesData = (countries) => {
       },
       "scale-x": {
         "min-value": 1960,
-        "max-value": 2020,
+        "max-value": 2022,
         shadow: 0,
-        step: 2,
+        step: 1,
         // transform: {
         //   type: "date",
         //   all: "%D, %d %M<br />%h:%i %A",
@@ -55,12 +70,13 @@ const prepareCountriesData = (countries) => {
       },
       "scale-y": {
         "line-color": "#f6f7f8",
+        "max-value": getMaxYAxisValue(populations),
         shadow: 0,
         guide: {
           "line-style": "dashed",
         },
         label: {
-          text: "Page Views",
+          text: "Population",
         },
         "minor-ticks": 0,
         "thousands-separator": ",",
@@ -98,33 +114,25 @@ const prepareCountriesData = (countries) => {
         animation: {
           effect: 1,
           sequence: 2,
-          speed: 100,
+          speed: 50,
         },
       },
       series: [
-        // Object.keys(countries).map(country => ({
-        //   values: Object.keys(countries[country]),
-        //   text: "USA",
-        //   "line-color": "#007790",
-        //   "legend-item": {
-        //     "background-color": "#007790",
-        //     borderRadius: 5,
-        //     "font-color": "white",
-        //   },
-        //   "legend-marker": {
-        //     visible: false,
-        //   },
-        //   marker: {
-        //     "background-color": "#007790",
-        //     "border-width": 1,
-        //     shadow: 0,
-        //     "border-color": "#69dbf1",
-        //   },
-        //   "highlight-marker": {
-        //     size: 6,
-        //     "background-color": "#007790",
-        //   },
-        // })),
+        ...Object.keys(countries).map((key) => {
+          const country = countries[key];
+          return {
+            values: country.stats.map((stat) => stat.population),
+            text: country.countryName,
+            "legend-item": {
+              "background-color": "#007790",
+              borderRadius: 5,
+              "font-color": "white",
+            },
+            "legend-marker": {
+              visible: false,
+            },
+          };
+        }),
         // {
         //   values: [
         //     714.6, 656.3, 660.6, 729.8, 731.6, 682.3, 654.6, 673.5, 700.6,
@@ -187,3 +195,11 @@ const prepareCountriesData = (countries) => {
     },
   };
 };
+
+function getMaxYAxisValue(populations) {
+  console.log(populations);
+  const maxPopulation = Math.max(...populations);
+  const maxAxisValue = Math.ceil(maxPopulation / 1000000) * 1000000 + 1000000;
+
+  return maxAxisValue;
+}

@@ -20,7 +20,7 @@ export const ComparatorWrapper = () => {
   return (
     <div>
       <WorldMap onCountryClick={onCountryClick}></WorldMap>
-      {/* <Comparator countryCodes={toCompare}></Comparator> */}
+      <Comparator></Comparator>
     </div>
   );
 };
